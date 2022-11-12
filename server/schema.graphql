@@ -1,0 +1,46 @@
+# "Query" is a default key from graphql
+# Query is read-only operation
+# naming = noun
+type Query {
+	job(id: ID!): Job
+	jobs: [Job] # array in graphql
+	company(id: ID!): Company
+}
+
+# "Mutation" is a default key from graphql
+# Mutation is an operation to modify data(create and update)
+# naming = verb
+type Mutation {
+	createJob(input: CreateJobInput): Job # () : Job = returned result
+	deleteJob(id: ID!): Job
+	updateJob(input: UpdateJobInput!): Job
+}
+
+# schema definition
+# custom typeDefs
+# ! means mandatory
+type Company {
+	id: ID!
+	name: String
+	description: String
+	jobs: [Job!]
+}
+
+type Job {
+	id: ID!
+	title: String!
+	company: Company
+	description: String
+}
+
+# Input for mutation
+# We can use an input type to accept an object with multiple properties as argument to a query or mutation
+input CreateJobInput {
+	title: String!
+	description: String
+}
+input UpdateJobInput {
+	id: ID!
+	title: String!
+	description: String
+}
